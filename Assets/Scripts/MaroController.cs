@@ -13,7 +13,7 @@ public class MaroController : MonoBehaviour
 
     private void Update()
     {
-        xVel = Mathf.Lerp(rb.velocity.x, Input.GetAxisRaw("Horizontal")*moveSpeed, 0.01f);
+        xVel = Mathf.Lerp(rb.velocity.x, Input.GetAxisRaw("Horizontal")*moveSpeed, 0.1f);
 
         float rJump = ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && rb.velocity.y == 0)?jumpForce:rb.velocity.y;
        

@@ -10,7 +10,7 @@ public class VertCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, new Vector3(startPos.x, Mathf.Max(transform.position.y,player.position.y), startPos.z),0.01f);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(startPos.x, Mathf.Max(transform.position.y,player.position.y), startPos.z),0.5f);
     }
 
 
