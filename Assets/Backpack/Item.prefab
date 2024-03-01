@@ -98,4 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  coord: {x: 0, y: 0}
   merged: []
+  sR: {fileID: 9110335894340746855}
