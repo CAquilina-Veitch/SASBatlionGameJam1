@@ -6,11 +6,11 @@ public static class Functions
 {
     public static Vector2 ToPos(this Vector2Int coord)
     {
-        return new Vector2(coord.x - 3, coord.y - 2);
+        return new Vector2(coord.x - 4, coord.y - 4);
     }
     public static Vector2Int ToCoord(this Vector2 pos)
     {
-        return new Vector2Int((int)pos.x + 3, (int)pos.y + 2);
+        return new Vector2Int((int)pos.x + 4, (int)pos.y + 4);
     }
     public static Color toHalf(this Color clr)
     {

@@ -19,7 +19,7 @@ public class Backpack : MonoBehaviour
     public GameObject itemPrefab;
 
 
-    public Vector2Int proportions = new Vector2Int(7,5);
+    public Vector2Int proportions = new Vector2Int(9,9);
 
 
     private void Start()
@@ -66,6 +66,10 @@ public class Backpack : MonoBehaviour
                 }
             }
         }
+        foreach(item prev in previewSet)
+        {
+            prev.UpdateSprite();
+        }
     }
 
     public void GeneratePreviewSet()
@@ -95,6 +99,7 @@ public class Backpack : MonoBehaviour
         GameObject obj = Instantiate(itemPrefab,coord.ToPos(),Quaternion.identity, transform);
 
         item temp = obj.GetComponent<item>();
+        temp.type = i;
         temp.bp = this;
         temp.coord = coord;
         temp.isPreview = true;
@@ -136,6 +141,10 @@ public class Backpack : MonoBehaviour
             tar.coord += dir;
             tar.transform.position = tar.coord.ToPos();
             activeItemDictionary.Add(tar.coord, tar);
+        }
+        foreach (item tar in pushTargets)
+        {
+            tar.UpdateSprite();
         }
     }
 
@@ -181,7 +190,7 @@ public class Backpack : MonoBehaviour
         List<ItemType> temp = new List<ItemType>();
         for (int i = 0; i < numPieces; i++)
         {
-            type = Random.Range(1, 5);
+            type = 1; // Random.Range(1, 5);
             temp.Add((ItemType)type);
         }
         return temp;
@@ -216,7 +225,22 @@ public class Backpack : MonoBehaviour
         }
         return temp;
     }
+    public List<Vector2Int> GetAdjacentDirOfType(Vector2Int coord, ItemType type)
+    {
+        List<Vector2Int> temp = new List<Vector2Int>();
 
+        foreach (Vector2Int dir in Functions.Dirs)
+        {
+            if (activeItemDictionary.TryGetValue(coord + dir, out item i))
+            {
+                if (i.type == type)
+                {
+                    temp.Add(dir);
+                }
+            }
+        }
+        return temp;
+    }
 
 
 }

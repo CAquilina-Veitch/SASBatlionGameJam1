@@ -1,7 +1,11 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+[Serializable]
 public enum ItemType { Empty, Sword, Shield, Potion, Gold}
 public class item : MonoBehaviour
 {
@@ -12,7 +16,8 @@ public class item : MonoBehaviour
             return _type; 
         }
         set 
-        { 
+        {
+            sR.sprite = tileSprites[(int)value-1].sprites[0];
             _type = value; 
         }
     }
@@ -52,62 +57,70 @@ public class item : MonoBehaviour
     public List<item> GetLinked()
     {
         List<item> linked = new List<item>();
-        List<Vector2Int> checkedTiles = new List<Vector2Int>();
-
-
-        checkedTiles.Add(coord);
-        linked.Add(this);
-
-        List<item> adjSimilar = bp.GetAdjacentOfType(coord,type);
-        foreach(item sim in adjSimilar)
-        {
-            checkedTiles.Add(sim.coord);
-            linked.Add(sim);
-            List<item> adjSim2 = bp.GetAdjacentOfType(sim.coord, type);
-            foreach(item sim2 in adjSim2)
-            {
-                if (!checkedTiles.Contains(sim.coord))
-                {
-                    checkedTiles.Add(sim2.coord);
-                    linked.Add(sim2);
-                }
-            }
-        }
-
-/*
-
-
 
         linked.Add(this);
-        toCheck.Add(this);
-        checkedTiles.Add(this);
 
-
-        while (toCheck.Count > 0)
+        int i = 0;
+        while(i > -1)
         {
-            List<item> adj = bp.GetAdjacent(toCheck[0].coord);
-            foreach (item item in adj)
+            List<item> adjSimilar = bp.GetAdjacentOfType(linked[i].coord, linked[i].type);
+            bool isNew = false;
+            foreach(item item in adjSimilar)
             {
-                if (checkedTiles.Contains(item))
+                if (!linked.Contains(item))
                 {
-                    adj.Remove(item);
-                }
-                else
-                {
-                    if (toCheck[0].type == type)
-                    {
-                        linked.Add(item);
-                        toCheck.Add(item);
-                        checkedTiles.Add(item);
-
-                    }
+                    isNew = true;
+                    linked.Add(item);
+                    
                 }
             }
-        }
-*/
+            i++;
+            if (!isNew && i == linked.Count)
+            {
+                i = -1;
+            }
 
+        }
         return linked;
     }
 
 
+    public List<TileSet> tileSprites = new List<TileSet>();
+
+
+    public void UpdateSprite()
+    {
+        List<Vector2Int> directions = bp.GetAdjacentDirOfType(coord,type);
+
+        int i = 0;
+        switch (directions.Count)
+        {
+            case 0:
+                i = 0;
+                break;
+            case 1:
+                i = 1;
+                // 1 or 3
+                break;
+            case 2:
+                i = 2;
+                //2 or 5
+                break;
+            case 3:
+                i = 4;
+                break;
+            default:
+                i = 6;
+                break;
+        }
+        sR.sprite = tileSprites[(int)type - 1].sprites[i];
+    }
+
+
+}
+[Serializable]
+public struct TileSet
+{
+    public ItemType itemType;
+    public Sprite[] sprites;
 }

@@ -97,7 +97,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33480fa0c353ed46a845e26be52ecf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  coord: {x: 0, y: 0}
-  merged: []
+  _coord: {x: 0, y: 0}
   sR: {fileID: 9110335894340746855}
+  bp: {fileID: 0}
+  tileSprites:
+  - itemType: 1
+    sprites:
+    - {fileID: -119515455, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    - {fileID: -101133962, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    - {fileID: 1465065317, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    - {fileID: -762058431, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    - {fileID: 271192537, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    - {fileID: -584888933, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    - {fileID: -1693234209, guid: b237028b16b1710499593a87a352bf70, type: 3}
+  - itemType: 2
+    sprites:
+    - {fileID: -1808948907, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: -711187502, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: 1704459262, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: 279684527, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: 1372172489, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: 356672318, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: 405410427, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: 1005920046, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+    - {fileID: -2092199266, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}

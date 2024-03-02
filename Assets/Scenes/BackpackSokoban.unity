@@ -150,7 +150,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 7, y: 5, z: 1}
+  m_LocalScale: {x: 9, y: 9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1703882990}
@@ -349,7 +349,7 @@ MonoBehaviour:
   spawned: []
   previewSet: []
   itemPrefab: {fileID: 139498417358618334, guid: c234c73eb41bea245a791bac70b7c1fb, type: 3}
-  proportions: {x: 7, y: 5}
+  proportions: {x: 9, y: 9}
 --- !u!1 &1942539043
 GameObject:
   m_ObjectHideFlags: 0
