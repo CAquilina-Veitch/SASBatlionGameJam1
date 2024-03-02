@@ -7,6 +7,10 @@ public class LilDog : MonoBehaviour
     public Vector2Int coord;
     public Backpack bp;
 
+    private void Start()
+    {
+        transform.position = coord.ToPos();
+    }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.W))

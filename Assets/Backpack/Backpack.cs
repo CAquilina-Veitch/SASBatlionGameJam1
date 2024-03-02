@@ -24,24 +24,23 @@ public class Backpack : MonoBehaviour
 
     private void Start()
     {
-        player.coord = new Vector2Int(4, 3);
+        player.coord = new Vector2Int(0, 0);
         GeneratePreviewSet();
-        MoveRows();
+        TileTurn();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            MoveRows();
+            TileTurn();
         }
     }
 
-    public void MoveRows()
+    public void TileTurn()
     {
         DropPreviewSet();
         GeneratePreviewSet();
-        //physics all the rows;
     }
 
     public void DropPreviewSet()
@@ -102,54 +101,51 @@ public class Backpack : MonoBehaviour
         return temp;
     }
 
-    public void TryMoveItem(Vector2Int to, Vector2Int from)
-    {
-        if(activeItemDictionary.TryGetValue(from, out item fromSpot))
-        {
-            TryMoveItem(to, fromSpot);
-        }
-    }
-    public void TryMoveItem(Vector2Int to, item from)
-    {
-        if (activeItemDictionary.TryGetValue(to, out item INTHEWAY))
-        {
-            Debug.LogError($" THIS MF {INTHEWAY} IS IN THE WAY??!??!");
-        }
-        else
-        {
-            MoveItem(to, from);
-        }
-    }
 
     public void TryPushItem(item item, Vector2Int dir)
     {
+        Debug.Log("trypush");
         List<item> pushTargets = item.GetLinked();
+
         bool canPush = true;
-        foreach(item piece in pushTargets)
+        foreach (item piece in pushTargets)
         {
-            if (activeItemDictionary.TryGetValue(piece.coord + dir,out item obstacle))
+            Debug.Log(piece.coord);
+            if (activeItemDictionary.TryGetValue(piece.coord + dir, out item obstacle))
             {
-                if(obstacle.type != item.type)
+                if (obstacle.type != item.type)
                 {
-                    canPush = false; 
+                    canPush = false;
                     break;
                 }
             }
         }
-        if( canPush)
+        if (canPush)
         {
-            foreach(item piece in pushTargets)
-            {
-                MoveItem(dir, piece);
-            }
+            PushWhole(dir,pushTargets);
         }
     }
-
+    public void PushWhole(Vector2Int dir, List<item> pushTargets)
+    {
+        foreach(item tar in pushTargets)
+        {
+            activeItemDictionary.Remove(tar.coord);
+        }
+        foreach(item tar in pushTargets)
+        {
+            tar.coord += dir;
+            tar.transform.position = tar.coord.ToPos();
+            activeItemDictionary.Add(tar.coord, tar);
+        }
+    }
 
     public void MoveItem(Vector2Int dir, item item)
     {
         activeItemDictionary.Remove(item.coord);
+        Debug.LogWarning($"from {item.coord} to {item.coord + dir}");
+
         item.coord += dir;
+        item.transform.position = item.coord.ToPos();
         activeItemDictionary.Add(item.coord, item);
     }
 
@@ -204,6 +200,23 @@ public class Backpack : MonoBehaviour
         }
         return temp;
     }
+    public List<item> GetAdjacentOfType(Vector2Int coord,ItemType type)
+    {
+        List<item> temp = new List<item>();
+
+        foreach (Vector2Int dir in Functions.Dirs)
+        {
+            if(activeItemDictionary.TryGetValue(coord+dir,out item i))
+            {
+                if (i.type == type)
+                {
+                    temp.Add(i);
+                }
+            }
+        }
+        return temp;
+    }
+
 
 
 }
