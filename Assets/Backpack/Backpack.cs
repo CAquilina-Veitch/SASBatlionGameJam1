@@ -68,13 +68,21 @@ public class Backpack : MonoBehaviour
         }
         foreach(item prev in previewSet)
         {
-            List<item> pushTargets = prev.GetLinked();
-            foreach(item pt in pushTargets)
-            {
-                pt.UpdateSprite();
-            }
+            UpdateTouchingItemSprites(prev);
         }
     }
+
+
+    public void UpdateTouchingItemSprites(item target)
+    {
+        List<item> pushTargets = target.GetLinked();
+        bool needsUniquePiece = true;
+        foreach (item pt in pushTargets)
+        {
+            needsUniquePiece = pt.UpdateSprite(needsUniquePiece);
+        }
+    }
+
 
     public void GeneratePreviewSet()
     {
@@ -146,11 +154,7 @@ public class Backpack : MonoBehaviour
             tar.transform.position = tar.coord.ToPos();
             activeItemDictionary.Add(tar.coord, tar);
         }
-        List<item> ptUpdated = pushTargets[0].GetLinked();
-        foreach (item tarUpdated in ptUpdated)
-        {
-            tarUpdated.UpdateSprite();
-        }
+        UpdateTouchingItemSprites(pushTargets[0]);
     }
 
     public void MoveItem(Vector2Int dir, item item)

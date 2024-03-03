@@ -27,4 +27,13 @@ public static class Functions
             return new List<Vector2Int>(new Vector2Int[] { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left });
         }
     }
+    public static Vector2Int Total(this List<Vector2Int> dirs)
+    {
+        Vector2Int total = Vector2Int.zero;
+        foreach(Vector2Int dir in dirs)
+        {
+            total += dir;
+        }
+        return total;
+    }
 }

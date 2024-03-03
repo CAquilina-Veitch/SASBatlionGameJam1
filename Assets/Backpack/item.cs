@@ -92,30 +92,64 @@ public class item : MonoBehaviour
     {
         List<Vector2Int> directions = bp.GetAdjacentDirOfType(coord,type);
 
+        
+    }
+    public bool UpdateSprite(bool needsUniquePiece)
+    {
+        List<Vector2Int> directions = bp.GetAdjacentDirOfType(coord, type);
         int i = 0;
+        bool _toOut = needsUniquePiece;
+        transform.rotation = Quaternion.identity;
+        sR.flipY = false;
+        sR.flipX = false;
         switch (directions.Count)
         {
             case 0:
                 i = 0;
                 break;
             case 1:
-                i = 1;
-                // 1 or 3
+                if (needsUniquePiece)
+                {
+                    i = 3;
+                    _toOut = false;
+                }
+                else
+                {
+                    i = 1;
+                }
+                transform.rotation = Quaternion.Euler(0, 0, -90 * directions[0].x);
+                if (directions[0].y != 0)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0,  90 - (90 * directions[0].y));
+                }
                 break;
             case 2:
-                i = 2;
-                //2 or 5
+                sR.flipX = directions.Total().x > 0;
+                if (directions[0] + directions[1] == Vector2Int.zero)
+                {
+                    i = 2;
+                }
+                else
+                {
+                    i = 5;
+                    sR.flipY = directions.Total().y > 0;
+                }
                 break;
             case 3:
                 i = 4;
+                sR.flipX = directions.Total().x > 0;
                 break;
             default:
                 i = 6;
                 break;
         }
+        if (i == 1)
+        {
+            sR.flipY = true;
+        }
         sR.sprite = tileSprites[(int)type - 1].sprites[i];
+        return _toOut;
     }
-
 
 }
 [Serializable]
