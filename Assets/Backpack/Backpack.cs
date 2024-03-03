@@ -68,7 +68,11 @@ public class Backpack : MonoBehaviour
         }
         foreach(item prev in previewSet)
         {
-            prev.UpdateSprite();
+            List<item> pushTargets = prev.GetLinked();
+            foreach(item pt in pushTargets)
+            {
+                pt.UpdateSprite();
+            }
         }
     }
 
@@ -142,9 +146,10 @@ public class Backpack : MonoBehaviour
             tar.transform.position = tar.coord.ToPos();
             activeItemDictionary.Add(tar.coord, tar);
         }
-        foreach (item tar in pushTargets)
+        List<item> ptUpdated = pushTargets[0].GetLinked();
+        foreach (item tarUpdated in ptUpdated)
         {
-            tar.UpdateSprite();
+            tarUpdated.UpdateSprite();
         }
     }
 
