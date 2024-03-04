@@ -238,6 +238,4 @@ public struct ItemSet
 public struct img
 {
     public Sprite sprite;
-    public int id;
-    public int numOfConnections;
 }

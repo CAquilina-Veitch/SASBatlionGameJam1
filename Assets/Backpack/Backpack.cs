@@ -7,26 +7,28 @@ using UnityEngine;
 public class Backpack : MonoBehaviour
 {
     [Header("Dependencies")]
-    [Space(40)]
 
+    public UsedItem usedItem;
 
 
     public LilDog player;
 
-    public List<item> spawned = new List<item>();
+    [HideInInspector] public List<item> spawned = new List<item>();
 
-    public Dictionary<Vector2Int, item> activeItemDictionary = new Dictionary<Vector2Int, item>();
+    [HideInInspector] public Dictionary<Vector2Int, item> activeItemDictionary = new Dictionary<Vector2Int, item>();
 
-    public List<item> previewSet = new List<item>();
+    [HideInInspector] public List<item> previewSet = new List<item>();
 
-    public List<ItemSet> itemSets = new List<ItemSet>();
+
 
     public GameObject itemPrefab;
 
-    
+    [Space(40)]
+    [Header("Variables to change")]
     public Vector2Int proportions = new Vector2Int(9,9);
+    public List<ItemSet> itemSets = new List<ItemSet>();
 
-    public UsedItem usedItem;
+
 
     private void Start()
     {
@@ -124,9 +126,9 @@ public class Backpack : MonoBehaviour
     {
         GameObject obj = Instantiate(itemPrefab,coord.ToPos(),Quaternion.identity, transform);
 
-        item temp = obj.GetComponent<item>();
-        temp.type = i;
+        item temp = obj.GetComponent<item>(); 
         temp.bp = this;
+        temp.type = i;
         temp.coord = coord;
         temp.isPreview = true;
         return temp;
