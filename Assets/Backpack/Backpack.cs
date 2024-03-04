@@ -19,29 +19,29 @@ public class Backpack : MonoBehaviour
     public GameObject itemPrefab;
 
 
-    public Vector2Int proportions = new Vector2Int(7,5);
+    public Vector2Int proportions = new Vector2Int(9,9);
 
+    public UsedItem usedItem;
 
     private void Start()
     {
-        player.coord = new Vector2Int(4, 3);
+        player.coord = new Vector2Int(0, 0);
         GeneratePreviewSet();
-        MoveRows();
+        TileTurn();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            MoveRows();
+            TileTurn();
         }
     }
 
-    public void MoveRows()
+    public void TileTurn()
     {
         DropPreviewSet();
         GeneratePreviewSet();
-        //physics all the rows;
     }
 
     public void DropPreviewSet()
@@ -67,7 +67,23 @@ public class Backpack : MonoBehaviour
                 }
             }
         }
+        foreach(item prev in previewSet)
+        {
+            UpdateTouchingItemSprites(prev);
+        }
     }
+
+
+    public void UpdateTouchingItemSprites(item target)
+    {
+        List<item> pushTargets = target.GetLinked();
+        bool needsUniquePiece = true;
+        foreach (item pt in pushTargets)
+        {
+            needsUniquePiece = pt.UpdateSprite(needsUniquePiece);
+        }
+    }
+
 
     public void GeneratePreviewSet()
     {
@@ -96,60 +112,77 @@ public class Backpack : MonoBehaviour
         GameObject obj = Instantiate(itemPrefab,coord.ToPos(),Quaternion.identity, transform);
 
         item temp = obj.GetComponent<item>();
+        temp.type = i;
         temp.bp = this;
         temp.coord = coord;
         temp.isPreview = true;
         return temp;
     }
 
-    public void TryMoveItem(Vector2Int to, Vector2Int from)
-    {
-        if(activeItemDictionary.TryGetValue(from, out item fromSpot))
-        {
-            TryMoveItem(to, fromSpot);
-        }
-    }
-    public void TryMoveItem(Vector2Int to, item from)
-    {
-        if (activeItemDictionary.TryGetValue(to, out item INTHEWAY))
-        {
-            Debug.LogError($" THIS MF {INTHEWAY} IS IN THE WAY??!??!");
-        }
-        else
-        {
-            MoveItem(to, from);
-        }
-    }
 
     public void TryPushItem(item item, Vector2Int dir)
     {
+        Debug.Log("trypush");
         List<item> pushTargets = item.GetLinked();
+
         bool canPush = true;
-        foreach(item piece in pushTargets)
+        foreach (item piece in pushTargets)
         {
-            if (activeItemDictionary.TryGetValue(piece.coord + dir,out item obstacle))
+            Vector2Int to = piece.coord + dir;
+
+            if(!(to.x >= 0 && to.x < proportions.x && to.y >= 0 && to.y < proportions.y))
             {
-                if(obstacle.type != item.type)
+                if (to.x >= proportions.x)
                 {
-                    canPush = false; 
+                    Debug.LogWarning("WE HAVE A PIECE MADE");
+                    PlayItemSet(pushTargets);
+                }
+                canPush = false;
+                break;
+            }
+            if (activeItemDictionary.TryGetValue(to, out item obstacle))
+            {
+                if (obstacle.type != item.type)
+                {
+                    canPush = false;
                     break;
                 }
             }
         }
-        if( canPush)
+        if (canPush)
         {
-            foreach(item piece in pushTargets)
-            {
-                MoveItem(dir, piece);
-            }
+            PushWhole(dir,pushTargets);
         }
     }
+    public void PlayItemSet(List<item> itemSet)
+    {
+        usedItem.CreateItemSet(itemSet);
+    }
 
+
+
+    public void PushWhole(Vector2Int dir, List<item> pushTargets)
+    {
+        foreach(item tar in pushTargets)
+        {
+            activeItemDictionary.Remove(tar.coord);
+        }
+        foreach(item tar in pushTargets)
+        {
+            tar.coord += dir;
+            tar.transform.position = tar.coord.ToPos();
+            activeItemDictionary.Add(tar.coord, tar);
+        }
+        UpdateTouchingItemSprites(pushTargets[0]);
+    }
 
     public void MoveItem(Vector2Int dir, item item)
     {
         activeItemDictionary.Remove(item.coord);
+        Debug.LogWarning($"from {item.coord} to {item.coord + dir}");
+
         item.coord += dir;
+        item.transform.position = item.coord.ToPos();
         activeItemDictionary.Add(item.coord, item);
     }
 
@@ -185,7 +218,7 @@ public class Backpack : MonoBehaviour
         List<ItemType> temp = new List<ItemType>();
         for (int i = 0; i < numPieces; i++)
         {
-            type = Random.Range(1, 5);
+            type = 1; // Random.Range(1, 5);
             temp.Add((ItemType)type);
         }
         return temp;
@@ -200,6 +233,38 @@ public class Backpack : MonoBehaviour
             if(activeItemDictionary.TryGetValue(coord+dir,out item i))
             {
                 temp.Add(i);
+            }
+        }
+        return temp;
+    }
+    public List<item> GetAdjacentOfType(Vector2Int coord,ItemType type)
+    {
+        List<item> temp = new List<item>();
+
+        foreach (Vector2Int dir in Functions.Dirs)
+        {
+            if(activeItemDictionary.TryGetValue(coord+dir,out item i))
+            {
+                if (i.type == type)
+                {
+                    temp.Add(i);
+                }
+            }
+        }
+        return temp;
+    }
+    public List<Vector2Int> GetAdjacentDirOfType(Vector2Int coord, ItemType type)
+    {
+        List<Vector2Int> temp = new List<Vector2Int>();
+
+        foreach (Vector2Int dir in Functions.Dirs)
+        {
+            if (activeItemDictionary.TryGetValue(coord + dir, out item i))
+            {
+                if (i.type == type)
+                {
+                    temp.Add(dir);
+                }
             }
         }
         return temp;
