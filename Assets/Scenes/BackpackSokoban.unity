@@ -462,7 +462,6 @@ Transform:
   - {fileID: 1122379793}
   - {fileID: 853284628}
   - {fileID: 1942539046}
-  - {fileID: 1935419692}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1703882991
@@ -481,6 +480,8 @@ MonoBehaviour:
   player: {fileID: 1942539044}
   spawned: []
   previewSet: []
+  itemPrefab: {fileID: 139498417358618334, guid: c234c73eb41bea245a791bac70b7c1fb, type: 3}
+  proportions: {x: 9, y: 9}
   itemSets:
   - type: 1
     zero:
@@ -528,8 +529,6 @@ MonoBehaviour:
       sprite: {fileID: 0}
     fourUnique:
       sprite: {fileID: 0}
-  itemPrefab: {fileID: 139498417358618334, guid: c234c73eb41bea245a791bac70b7c1fb, type: 3}
-  proportions: {x: 9, y: 9}
 --- !u!1 &1942539043
 GameObject:
   m_ObjectHideFlags: 0
