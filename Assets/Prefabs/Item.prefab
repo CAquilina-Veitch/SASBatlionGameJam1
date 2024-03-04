@@ -121,3 +121,92 @@ MonoBehaviour:
     - {fileID: 405410427, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
     - {fileID: 1005920046, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
     - {fileID: -2092199266, guid: e67bc9e6df4e74b4f9d8f61cf581edce, type: 3}
+  itemSets:
+  - zero:
+      sprite: {fileID: -119515455, guid: b237028b16b1710499593a87a352bf70, type: 3}
+      id: 0
+      numOfConnections: 0
+    one:
+      sprite: {fileID: -101133962, guid: b237028b16b1710499593a87a352bf70, type: 3}
+      id: 0
+      numOfConnections: 0
+    oneUnique:
+      sprite: {fileID: -762058431, guid: b237028b16b1710499593a87a352bf70, type: 3}
+      id: 0
+      numOfConnections: 0
+    two:
+      sprite: {fileID: 1465065317, guid: b237028b16b1710499593a87a352bf70, type: 3}
+      id: 0
+      numOfConnections: 0
+    twoUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    twoElbow:
+      sprite: {fileID: -584888933, guid: b237028b16b1710499593a87a352bf70, type: 3}
+      id: 0
+      numOfConnections: 0
+    twoElbowUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    three:
+      sprite: {fileID: 271192537, guid: b237028b16b1710499593a87a352bf70, type: 3}
+      id: 0
+      numOfConnections: 0
+    threeUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    four:
+      sprite: {fileID: -1693234209, guid: b237028b16b1710499593a87a352bf70, type: 3}
+      id: 0
+      numOfConnections: 0
+    fourUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+  - zero:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    one:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    oneUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    two:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    twoUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    twoElbow:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    twoElbowUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    three:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    threeUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    four:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0
+    fourUnique:
+      sprite: {fileID: 0}
+      id: 0
+      numOfConnections: 0

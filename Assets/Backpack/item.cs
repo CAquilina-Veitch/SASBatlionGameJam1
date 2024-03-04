@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -17,7 +18,7 @@ public class item : MonoBehaviour
         }
         set 
         {
-            sR.sprite = tileSprites[(int)value-1].sprites[0];
+            ////////////////////////sR.sprite = itemSets[(int)value - 1].zero.sprite;
             _type = value; 
         }
     }
@@ -32,7 +33,6 @@ public class item : MonoBehaviour
         }
         set 
         {
-            //transform.position = coord.ToPos();
             _coord = value; 
         } 
     }
@@ -84,8 +84,7 @@ public class item : MonoBehaviour
         return linked;
     }
 
-
-    public List<TileSet> tileSprites = new List<TileSet>();
+    public ItemSet currentItemSet;
 
 
     public void UpdateSprite()
@@ -94,76 +93,153 @@ public class item : MonoBehaviour
 
         
     }
-    public bool UpdateSprite(bool needsUniquePiece)
+    public bool[] UpdateSprite(bool[] needsUniquePiece)
     {
         List<Vector2Int> directions = bp.GetAdjacentDirOfType(coord, type);
         int i = 0;
-        bool _toOut = needsUniquePiece;
+        bool[] _toOut = needsUniquePiece;
         transform.rotation = Quaternion.identity;
         sR.flipY = false;
         sR.flipX = false;
+
+        ItemSet currentSet = bp.itemSets[(int)type - 1];///////////
+
+
+
         switch (directions.Count)
         {
             case 0:
-                i = 0;
+                sR.sprite = currentSet.zero.sprite;
                 break;
             case 1:
-                if (needsUniquePiece)
+
+                //sprite
+
+                if (needsUniquePiece[0])
                 {
-                    i = 3;
-                    _toOut = false;
+                    _toOut[0] = false;
+                    sR.sprite = currentSet.oneUnique.sprite;
                 }
                 else
                 {
-                    i = 1;
+                    sR.sprite = currentSet.one.sprite;
                 }
-                transform.rotation = Quaternion.Euler(0, 0, -90 * directions[0].x);
+
+                //rotation
+
+                if (directions[0].y != 0)
+                {
+                    sR.flipY = directions[0].y > 0;
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 90 * directions[0].x);
+                }
+
                 if (directions[0].y != 0)
                 {
                     transform.rotation = Quaternion.Euler(0, 0,  90 - (90 * directions[0].y));
                 }
+
+
+
                 break;
             case 2:
-                sR.flipX = directions.Total().x > 0;
-                if (directions[0] + directions[1] == Vector2Int.zero)
+
+                //sprite
+
+                if (directions.Total().x + directions.Total().y == 0)
                 {
-                    i = 2;
-                    transform.rotation = directions[0].x != 0 ? Quaternion.Euler(0, 0, 90) : Quaternion.identity;
+                    //straight sprite
+                    if (needsUniquePiece[1])
+                    {
+                        _toOut[1] = false;
+                        sR.sprite = currentSet.twoUnique.sprite;
+                    }
+                    else
+                    {
+                        sR.sprite = currentSet.two.sprite;
+                    }
+
+                    //rotation
+                    if (MathF.Abs(directions[0].x) == 1)
+                    {
+                        transform.rotation = Quaternion.Euler(0, 0, 90);
+                    }
+
+
                 }
                 else
                 {
-                    i = 5;
+                    //elbow
+                    if (needsUniquePiece[2])
+                    {
+                        _toOut[2] = false;
+                        sR.sprite = currentSet.twoElbowUnique.sprite;
+                    }
+                    else
+                    {
+                        sR.sprite = currentSet.twoElbow.sprite;
+                    }
+
+                    //rotation
+                    sR.flipX = sR.flipY = directions.Total().x > 0;
                     sR.flipY = directions.Total().y > 0;
                 }
                 break;
             case 3:
-                i = 4;
-                if (directions.Total().y == 0)
+                if (needsUniquePiece[3])
                 {
-                    sR.flipX = directions.Total().x > 0;
+                    _toOut[3] = false;
+                    sR.sprite = currentSet.threeUnique.sprite;
                 }
                 else
                 {
-                    transform.rotation = directions.Total().y>0? Quaternion.Euler(0, 0, -90): Quaternion.Euler(0, 0, 90); 
+                    sR.sprite = currentSet.three.sprite;
                 }
-                
+
+                transform.rotation = Quaternion.Euler(0, 0, (Mathf.Rad2Deg*Mathf.Atan2(directions.Total().y, directions.Total().x)));                
+                break;
+            case 4:
+                if (needsUniquePiece[4])
+                {
+                    _toOut[4] = false;
+                    sR.sprite = currentSet.fourUnique.sprite;
+                }
+                else
+                {
+                    sR.sprite = currentSet.four.sprite;
+                }
                 break;
             default:
-                i = 6;
+                sR.sprite = currentSet.zero.sprite;
                 break;
         }
-        if (i == 1)
-        {
-            sR.flipY = true;
-        }
-        sR.sprite = tileSprites[(int)type - 1].sprites[i];
         return _toOut;
     }
 
 }
 [Serializable]
-public struct TileSet
+public struct ItemSet
 {
-    public ItemType itemType;
-    public Sprite[] sprites;
+    public ItemType type;
+
+    public img zero;
+    public img one;
+    public img oneUnique;
+    public img two;
+    public img twoUnique;
+    public img twoElbow;
+    public img twoElbowUnique;
+    public img three;
+    public img threeUnique;
+    public img four;
+    public img fourUnique;
+}
+[Serializable]
+public struct img
+{
+    public Sprite sprite;
+    public int id;
+    public int numOfConnections;
 }
