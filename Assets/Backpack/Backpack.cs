@@ -14,7 +14,7 @@ public class Backpack : MonoBehaviour
 
     public List<item> previewSet = new List<item>();
 
-
+    public List<ItemSet> itemSets = new List<ItemSet>();
 
     public GameObject itemPrefab;
 
@@ -77,7 +77,15 @@ public class Backpack : MonoBehaviour
     public void UpdateTouchingItemSprites(item target)
     {
         List<item> pushTargets = target.GetLinked();
-        bool needsUniquePiece = true;
+        ItemSet temp = itemSets[(int)target.type - 1];
+        bool[] needsUniquePiece =
+        {
+            temp.oneUnique.sprite!=null,
+            temp.twoUnique.sprite!=null,
+            temp.twoElbowUnique.sprite!=null,
+            temp.threeUnique.sprite!=null,
+            temp.fourUnique.sprite!=null
+        };
         foreach (item pt in pushTargets)
         {
             needsUniquePiece = pt.UpdateSprite(needsUniquePiece);
@@ -218,7 +226,7 @@ public class Backpack : MonoBehaviour
         List<ItemType> temp = new List<ItemType>();
         for (int i = 0; i < numPieces; i++)
         {
-            type = 1; // Random.Range(1, 5);
+            type = Random.Range(1, 2);
             temp.Add((ItemType)type);
         }
         return temp;
