@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class Backpack : MonoBehaviour
 {
+    [Header("Dependencies")]
+    [Space(40)]
+
+
+
     public LilDog player;
 
     public List<item> spawned = new List<item>();
@@ -18,7 +23,7 @@ public class Backpack : MonoBehaviour
 
     public GameObject itemPrefab;
 
-
+    
     public Vector2Int proportions = new Vector2Int(9,9);
 
     public UsedItem usedItem;
