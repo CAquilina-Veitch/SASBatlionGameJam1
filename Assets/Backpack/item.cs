@@ -112,7 +112,11 @@ public class item : MonoBehaviour
             case 1:
 
                 //sprite
-
+                if (currentItemSet.one.sprite == null)
+                {
+                    sR.sprite = currentItemSet.zero.sprite;
+                    break;
+                }
                 if (needsUniquePiece[0])
                 {
                     _toOut[0] = false;
@@ -128,6 +132,7 @@ public class item : MonoBehaviour
                 if (directions[0].y != 0)
                 {
                     sR.flipY = directions[0].y > 0;
+                    sR.flipX = directions[0].y > 0;
                 }
                 else
                 {
@@ -136,7 +141,11 @@ public class item : MonoBehaviour
 
                 break;
             case 2:
-
+                if (currentItemSet.two.sprite == null)
+                {
+                    sR.sprite = currentItemSet.zero.sprite;
+                    break;
+                }
                 //sprite
                 if ( MathF.Abs( directions.Total().x) + MathF.Abs(directions.Total().y) == 0)
                 {
@@ -178,6 +187,11 @@ public class item : MonoBehaviour
                 }
                 break;
             case 3:
+                if (currentItemSet.three.sprite == null)
+                {
+                    sR.sprite = currentItemSet.zero.sprite;
+                    break;
+                }
                 if (needsUniquePiece[3])
                 {
                     _toOut[3] = false;
@@ -191,6 +205,11 @@ public class item : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, 90 + (Mathf.Rad2Deg * Mathf.Atan2(directions.Total().y, directions.Total().x)));
                 break;
             case 4:
+                if (currentItemSet.four.sprite == null)
+                {
+                    sR.sprite = currentItemSet.zero.sprite;
+                    break;
+                }
                 if (needsUniquePiece[4])
                 {
                     _toOut[4] = false;
