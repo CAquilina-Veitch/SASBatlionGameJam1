@@ -7,7 +7,7 @@ public class UsedItem : MonoBehaviour
     public Backpack bP;
     public void CreateItemSet(List<item> pieces)
     {
-        Vector2Int start= pieces[0].coord;
+        Vector2Int start = pieces[0].coord;
         foreach (item i in pieces)
         {
             bP.activeItemDictionary.Remove(i.coord);

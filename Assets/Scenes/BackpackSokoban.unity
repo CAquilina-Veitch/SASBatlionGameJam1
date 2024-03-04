@@ -476,12 +476,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653ef110b0d942846831f789c40f9335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usedItem: {fileID: 853284627}
   player: {fileID: 1942539044}
   spawned: []
   previewSet: []
+  itemSets:
+  - type: 1
+    zero:
+      sprite: {fileID: -119515455, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    one:
+      sprite: {fileID: -101133962, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    oneUnique:
+      sprite: {fileID: 1465065317, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    two:
+      sprite: {fileID: -762058431, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    twoUnique:
+      sprite: {fileID: 0}
+    twoElbow:
+      sprite: {fileID: 271192537, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    twoElbowUnique:
+      sprite: {fileID: 0}
+    three:
+      sprite: {fileID: -584888933, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    threeUnique:
+      sprite: {fileID: 0}
+    four:
+      sprite: {fileID: -1693234209, guid: b237028b16b1710499593a87a352bf70, type: 3}
+    fourUnique:
+      sprite: {fileID: 0}
+  - type: 2
+    zero:
+      sprite: {fileID: 0}
+    one:
+      sprite: {fileID: 0}
+    oneUnique:
+      sprite: {fileID: 0}
+    two:
+      sprite: {fileID: 0}
+    twoUnique:
+      sprite: {fileID: 0}
+    twoElbow:
+      sprite: {fileID: 0}
+    twoElbowUnique:
+      sprite: {fileID: 0}
+    three:
+      sprite: {fileID: 0}
+    threeUnique:
+      sprite: {fileID: 0}
+    four:
+      sprite: {fileID: 0}
+    fourUnique:
+      sprite: {fileID: 0}
   itemPrefab: {fileID: 139498417358618334, guid: c234c73eb41bea245a791bac70b7c1fb, type: 3}
   proportions: {x: 9, y: 9}
-  usedItem: {fileID: 853284627}
 --- !u!1 &1942539043
 GameObject:
   m_ObjectHideFlags: 0
