@@ -18,7 +18,8 @@ public class item : MonoBehaviour
         }
         set 
         {
-            ////////////////////////sR.sprite = itemSets[(int)value - 1].zero.sprite;
+            currentItemSet = bp.itemSets[(int)value-1];
+            sR.sprite = currentItemSet.zero.sprite;
             _type = value; 
         }
     }
@@ -96,20 +97,17 @@ public class item : MonoBehaviour
     public bool[] UpdateSprite(bool[] needsUniquePiece)
     {
         List<Vector2Int> directions = bp.GetAdjacentDirOfType(coord, type);
-        int i = 0;
+
         bool[] _toOut = needsUniquePiece;
+
         transform.rotation = Quaternion.identity;
         sR.flipY = false;
         sR.flipX = false;
 
-        ItemSet currentSet = bp.itemSets[(int)type - 1];///////////
-
-
-
         switch (directions.Count)
         {
             case 0:
-                sR.sprite = currentSet.zero.sprite;
+                sR.sprite = currentItemSet.zero.sprite;
                 break;
             case 1:
 
@@ -118,11 +116,11 @@ public class item : MonoBehaviour
                 if (needsUniquePiece[0])
                 {
                     _toOut[0] = false;
-                    sR.sprite = currentSet.oneUnique.sprite;
+                    sR.sprite = currentItemSet.oneUnique.sprite;
                 }
                 else
                 {
-                    sR.sprite = currentSet.one.sprite;
+                    sR.sprite = currentItemSet.one.sprite;
                 }
 
                 //rotation
@@ -154,11 +152,11 @@ public class item : MonoBehaviour
                     if (needsUniquePiece[1])
                     {
                         _toOut[1] = false;
-                        sR.sprite = currentSet.twoUnique.sprite;
+                        sR.sprite = currentItemSet.twoUnique.sprite;
                     }
                     else
                     {
-                        sR.sprite = currentSet.two.sprite;
+                        sR.sprite = currentItemSet.two.sprite;
                     }
 
                     //rotation
@@ -175,11 +173,11 @@ public class item : MonoBehaviour
                     if (needsUniquePiece[2])
                     {
                         _toOut[2] = false;
-                        sR.sprite = currentSet.twoElbowUnique.sprite;
+                        sR.sprite = currentItemSet.twoElbowUnique.sprite;
                     }
                     else
                     {
-                        sR.sprite = currentSet.twoElbow.sprite;
+                        sR.sprite = currentItemSet.twoElbow.sprite;
                     }
 
                     //rotation
@@ -191,11 +189,11 @@ public class item : MonoBehaviour
                 if (needsUniquePiece[3])
                 {
                     _toOut[3] = false;
-                    sR.sprite = currentSet.threeUnique.sprite;
+                    sR.sprite = currentItemSet.threeUnique.sprite;
                 }
                 else
                 {
-                    sR.sprite = currentSet.three.sprite;
+                    sR.sprite = currentItemSet.three.sprite;
                 }
 
                 transform.rotation = Quaternion.Euler(0, 0, (Mathf.Rad2Deg*Mathf.Atan2(directions.Total().y, directions.Total().x)));                
@@ -204,15 +202,15 @@ public class item : MonoBehaviour
                 if (needsUniquePiece[4])
                 {
                     _toOut[4] = false;
-                    sR.sprite = currentSet.fourUnique.sprite;
+                    sR.sprite = currentItemSet.fourUnique.sprite;
                 }
                 else
                 {
-                    sR.sprite = currentSet.four.sprite;
+                    sR.sprite = currentItemSet.four.sprite;
                 }
                 break;
             default:
-                sR.sprite = currentSet.zero.sprite;
+                sR.sprite = currentItemSet.zero.sprite;
                 break;
         }
         return _toOut;
