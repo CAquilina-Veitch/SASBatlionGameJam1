@@ -134,19 +134,11 @@ public class item : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, 0, 90 * directions[0].x);
                 }
 
-                if (directions[0].y != 0)
-                {
-                    transform.rotation = Quaternion.Euler(0, 0,  90 - (90 * directions[0].y));
-                }
-
-
-
                 break;
             case 2:
 
                 //sprite
-
-                if (directions.Total().x + directions.Total().y == 0)
+                if ( MathF.Abs( directions.Total().x) + MathF.Abs(directions.Total().y) == 0)
                 {
                     //straight sprite
                     if (needsUniquePiece[1])
@@ -196,7 +188,7 @@ public class item : MonoBehaviour
                     sR.sprite = currentItemSet.three.sprite;
                 }
 
-                transform.rotation = Quaternion.Euler(0, 0, (Mathf.Rad2Deg*Mathf.Atan2(directions.Total().y, directions.Total().x)));                
+                transform.rotation = Quaternion.Euler(0, 0, 90 + (Mathf.Rad2Deg * Mathf.Atan2(directions.Total().y, directions.Total().x)));
                 break;
             case 4:
                 if (needsUniquePiece[4])
