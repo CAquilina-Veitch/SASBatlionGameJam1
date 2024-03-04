@@ -21,6 +21,7 @@ public class Backpack : MonoBehaviour
 
     public Vector2Int proportions = new Vector2Int(9,9);
 
+    public UsedItem usedItem;
 
     private void Start()
     {
@@ -127,8 +128,19 @@ public class Backpack : MonoBehaviour
         bool canPush = true;
         foreach (item piece in pushTargets)
         {
-            Debug.Log(piece.coord);
-            if (activeItemDictionary.TryGetValue(piece.coord + dir, out item obstacle))
+            Vector2Int to = piece.coord + dir;
+
+            if(!(to.x >= 0 && to.x < proportions.x && to.y >= 0 && to.y < proportions.y))
+            {
+                if (to.x >= proportions.x)
+                {
+                    Debug.LogWarning("WE HAVE A PIECE MADE");
+                    PlayItemSet(pushTargets);
+                }
+                canPush = false;
+                break;
+            }
+            if (activeItemDictionary.TryGetValue(to, out item obstacle))
             {
                 if (obstacle.type != item.type)
                 {
@@ -142,6 +154,13 @@ public class Backpack : MonoBehaviour
             PushWhole(dir,pushTargets);
         }
     }
+    public void PlayItemSet(List<item> itemSet)
+    {
+        usedItem.CreateItemSet(itemSet);
+    }
+
+
+
     public void PushWhole(Vector2Int dir, List<item> pushTargets)
     {
         foreach(item tar in pushTargets)

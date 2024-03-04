@@ -14,7 +14,7 @@ public static class Functions
     }
     public static Color toHalf(this Color clr)
     {
-        return new Color(clr.r, clr.g, clr.b, 0.5f);
+        return new Color(clr.r, clr.g, clr.b, 0.25f);
     }
     public static Color toFull(this Color clr)
     {

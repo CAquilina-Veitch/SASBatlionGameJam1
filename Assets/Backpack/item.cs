@@ -128,6 +128,7 @@ public class item : MonoBehaviour
                 if (directions[0] + directions[1] == Vector2Int.zero)
                 {
                     i = 2;
+                    transform.rotation = directions[0].x != 0 ? Quaternion.Euler(0, 0, 90) : Quaternion.identity;
                 }
                 else
                 {
@@ -137,7 +138,15 @@ public class item : MonoBehaviour
                 break;
             case 3:
                 i = 4;
-                sR.flipX = directions.Total().x > 0;
+                if (directions.Total().y == 0)
+                {
+                    sR.flipX = directions.Total().x > 0;
+                }
+                else
+                {
+                    transform.rotation = directions.Total().y>0? Quaternion.Euler(0, 0, -90): Quaternion.Euler(0, 0, 90); 
+                }
+                
                 break;
             default:
                 i = 6;
