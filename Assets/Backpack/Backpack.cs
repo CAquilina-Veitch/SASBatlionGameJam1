@@ -233,7 +233,7 @@ public class Backpack : MonoBehaviour
         List<ItemType> temp = new List<ItemType>();
         for (int i = 0; i < numPieces; i++)
         {
-            type = Random.Range(1, 3);
+            type = Random.Range(1, 5);
             temp.Add((ItemType)type);
         }
         return temp;
