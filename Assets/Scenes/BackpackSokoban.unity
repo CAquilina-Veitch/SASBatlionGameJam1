@@ -607,6 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coord: {x: 0, y: 0}
   bp: {fileID: 1703882991}
+  pullKey: 101
 --- !u!212 &1942539045
 SpriteRenderer:
   m_ObjectHideFlags: 0

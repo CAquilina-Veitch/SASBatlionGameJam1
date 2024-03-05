@@ -167,6 +167,7 @@ public class Backpack : MonoBehaviour
         if (canPush)
         {
             PushWhole(dir,pushTargets);
+            player.PushedMove(dir);
         }
     }
     public void PlayItemSet(List<item> itemSet)
