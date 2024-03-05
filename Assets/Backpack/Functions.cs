@@ -36,4 +36,8 @@ public static class Functions
         }
         return total;
     }
+    public static Card Rand(this List<Card> a)
+    {
+        return a[Random.Range(0,a.Count)];
+    }
 }

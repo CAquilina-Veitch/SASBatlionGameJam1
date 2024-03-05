@@ -282,7 +282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb54cf80ae0aa842bc09ddb39dbba27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Deck: []
+  Deck:
+  - Sections:
+    - tiles: 00000000
+  ActiveDeck: []
 --- !u!4 &892550573
 Transform:
   m_ObjectHideFlags: 0

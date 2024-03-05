@@ -6,6 +6,7 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public List<Card> Deck = new List<Card>();
+    public List<Card> ActiveDeck = new List<Card>();
 
     public Card GenerateRandomCard()
     {
@@ -15,7 +16,7 @@ public class CardController : MonoBehaviour
         int numSections = UnityEngine.Random.Range(1, 3);
         for(int i = 0; i < numSections; i++)
         {
-            CardSection section = new CardSection() {tiles= new List<ItemType>() };
+            CardSection section = new CardSection() {tiles = new List<ItemType>() };
             int type = UnityEngine.Random.Range(1, 5);
             int num = UnityEngine.Random.Range(1, 4);
             for(int j = 0; j < num; j++)
@@ -32,7 +33,26 @@ public class CardController : MonoBehaviour
     private void Start()
     {
         Deck.Add(GenerateRandomCard());
+        ActiveDeck = Deck;
     }
+
+    public void TurnShowThree()
+    {
+
+    }
+
+    public Card DrawCard()
+    {
+        if (ActiveDeck.Count < 1)
+        {
+            ActiveDeck = Deck;
+        }
+        Card temp = ActiveDeck.Rand();
+        ActiveDeck.Remove(temp);
+        return temp;
+    }
+
+
 
 }
 
