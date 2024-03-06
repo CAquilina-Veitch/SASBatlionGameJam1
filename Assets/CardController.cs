@@ -38,7 +38,11 @@ public class CardController : MonoBehaviour
 
     public void TurnShowThree()
     {
-
+        List<Card> three = new List<Card>();
+        for(int i =0; i < 3; i++)
+        {
+            three.Add(DrawCard());
+        }
     }
 
     public Card DrawCard()
