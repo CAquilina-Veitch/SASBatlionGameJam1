@@ -36,12 +36,23 @@ public class CardController : MonoBehaviour
         ActiveDeck = Deck;
     }
 
+
+    public Transform optionParent;
+    List<Transform> options = new List<Transform>();
     public void TurnShowThree()
     {
         List<Card> three = new List<Card>();
         for(int i =0; i < 3; i++)
         {
             three.Add(DrawCard());
+        }
+    }
+
+    public void GenerateOptionPositions(int num)
+    {
+        for (int i = 0; i < num; i++)
+        {
+
         }
     }
 
